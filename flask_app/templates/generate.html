@@ -48,9 +48,9 @@
                         <!-- TABLE WILL BE CREATED IN JS -->
                     </div>
                     <input type="hidden" class="form-control" name="user_id" value="{{session['user_id']}}">
-                    <!-- {% if 'user_id' in session %}
+                    {% if 'user_id' in session %}
                         <button type="submit" id="saveButton" class="btn btn-primary visually-hidden">Save Build</button>
-                    {% else %} -->
+                    {% else %}
                         <p class="h5 visually-hidden text-light shadow-lg" id="warning">You must <a href="/users/register">register</a> to save your builds</p>
                     {% endif %}
                 </form>
