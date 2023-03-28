@@ -77,18 +77,3 @@ def show_builds(user_id):
     all_builds = Build.get_builds_by_user(user_id)
     # print(all_builds)
     return render_template('saved_builds.html', user = user, all_builds = all_builds)
-
-@app.route('/builds/save', methods=['POST'])
-def save_build():
-    # print(f"FORM DATA >>>>> {request.form}")
-    data = {
-        **request.form,
-        'img_path': request.form['race'].lower() + '-' + request.form['buildClass'].lower()
-    }
-    Build.create_build(data)
-    return redirect(f"/users/{session['user_id']}/builds")
-
-@app.route('/builds/delete/<int:build_id>')
-def delete_build(build_id):
-    Build.delete_build(build_id)
-    return redirect(f"/users/{session['user_id']}/builds")

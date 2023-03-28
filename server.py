@@ -1,4 +1,4 @@
-from flask_app.controllers import users
+from flask_app.controllers import users, builds
 from flask_app import app
 
 if __name__ == "__main__":

@@ -65,7 +65,12 @@
                                         {{all_builds[index].bg_description}}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-center" colspan="4"><a class="btn btn-danger" href="/builds/delete/{{all_builds[index].id}}" role="button">Delete Build</a></td>
+                                        <td colspan="4">
+                                            <div class="d-flex justify-content-center gap-5">
+                                                <a class="btn btn-primary" href="/builds/edit/{{all_builds[index].id}}" role="button">Edit Build</a>
+                                                <a class="btn btn-danger" href="/builds/delete/{{all_builds[index].id}}" role="button">Delete Build</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
