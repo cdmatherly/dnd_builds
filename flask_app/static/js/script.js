@@ -5,13 +5,12 @@ var randomBg = bgList[Math.floor(Math.random() * bgList.length)]
 var body = document.querySelector('body')
 body.classList.add(randomBg)
 
-console.log("Working")
+var raceList = ["dragonborn", "dwarf", "elf", 'gnome', 'half-elf', 'half-orc', 'halfling', 'human', 'tiefling'];
+var classList = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard'];
+var backgroundList = ["acolyte", "con-artist", "scoundrel"];
 
 function getData() {
     //List options
-    var raceList = ["dragonborn", "dwarf", "elf", 'gnome', 'half-elf', 'half-orc', 'halfling', 'human', 'tiefling'];
-    var classList = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard'];
-    var backgroundList = ["acolyte", "con-artist", "scoundrel"];
 
     //Randomize an option from each list
     var raceChoice = raceList[Math.floor(Math.random() * raceList.length)];
@@ -50,6 +49,9 @@ function getData() {
                                 <input type="hidden" class="form" name="proficiencies" id="proficienciesInput" value = "[">
                             </div>
                             `
+    var genBtns = document.querySelector("#genBtns")
+    genBtns.classList.remove("flex-column")
+    
     Promise.all([ //chained fetch requests for each option
         fetch(`https://www.dnd5eapi.co/api/races/${raceChoice}`).then(response => response.json()).then(function (race) {
             console.log(race);
@@ -169,7 +171,7 @@ for (var i of classList){
     i = i.charAt(0).toUpperCase() + i.slice(1) //capitalizes the first letter
     classSelect.innerHTML += `<option value="${i}">${i}</option>` //inserts select option from race list
 }
-for (var i of bgList){
+for (var i of backgroundList){
     i = i.charAt(0).toUpperCase() + i.slice(1) //capitalizes the first letter
     bgSelect.innerHTML += `<option value="${i}">${i}</option>` //inserts select option from race list
 }
