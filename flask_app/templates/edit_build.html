@@ -27,22 +27,26 @@
             <div class="box">
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-start align-content-center gap-5 mb-3">
-                        <p class="fs-4 col-1">Build :</p>
-
-                        <div class="table-responsive rounded-4 border border-secondary border-2 mb-4 pt-2 col-7">
-                            <table class="table table-borderless">
+                        <div class="table-responsive rounded-4 border border-secondary border-2 mb-4 py-4 px-5 col-7">
+                            <p class="fs-3 fw-bold text-center">{{build.build_name}}</p>
+                            <table class="table table-bordered">
                                 <tbody>
                                     <tr class="">
-                                        <td class="h5 col-1 px-5 align-middle" scope="row">Race:</td>
+                                        <td class="h5 col-1 align-middle" scope="row">Race:</td>
                                         <td id="race" class="fw-semibold text-start col-2 h4 align-middle eaves">
                                             <!-- <input type="text" class="form-control" name="race" value="{{build.race}}"> -->
                                             <select class="form-select" name="race" id="raceSelect">
                                                 <option selected value="{{build.race}}">{{build.race}}</option>
                                             </select>
                                         </td>
-                                        <td class="h5 col-1 pt-4 align-middle">Proficiencies:</td>
-                                        <td id="proficiencies" class="col-3 pt-4 fst-italic" rowspan="3">
-                                            <textarea class="form-control" name="proficiencies"
+                                        <td class="h5 align-middle text-center col-1" rowspan="3">
+                                            <div class="d-flex flex-column">
+                                                <p>Proficiencies:</p>
+                                                <p class="fst-italic fw-300 fs-6">Enter each item on a new line</p>
+                                            </div>
+                                        </td>
+                                        <td id="proficiencies" class="col-3 " rowspan="3">
+                                            <textarea class="form-control fst-italic" name="proficiencies"
                                                 rows="6">{%for each_prof in build.proficiencies%}{{each_prof}}&#10;{%endfor%}</textarea>
                                             <!-- {%for each_prof in build.proficiencies%}
                                                 {{each_prof}} <br>
@@ -50,28 +54,33 @@
                                         </td>
                                     </tr>
                                     <tr class="">
-                                        <td class="h5 px-5 align-middle">Class:</td>
+                                        <td class="h5 align-middle">Class:</td>
                                         <td id="buildClass" class="fw-semibold text-start align-middle h4 eaves">
                                             <!-- <input type="text" class="form-control" name="build_class"
                                                 value="{{build.build_class}}"> -->
                                             <select class="form-select" name="build_class" id="classSelect">
-                                                <option selected value="{{build.build_class}}">{{build.build_class}}</option>
+                                                <option selected value="{{build.build_class}}">{{build.build_class}}
+                                                </option>
                                             </select>
                                         </td>
                                     </tr>
                                     <tr class="">
-                                        <td class="h5 px-5 align-middle">Background:</td>
+                                        <td class="h5 align-middle">Background:</td>
                                         <td id="background" class="fw-semibold text-start align-middle h4 eaves">
-                                        <!-- <input type="text" class="form-control" name="background" value="{{build.background}}"> -->
+                                            <!-- <input type="text" class="form-control" name="background" value="{{build.background}}"> -->
                                             <select class="form-select" name="background" id="bgSelect">
-                                                <option selected value="{{build.background}}">{{build.background}}</option>
+                                                <option selected value="{{build.background}}">{{build.background}}
+                                                </option>
                                             </select>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4" id="raceDescription" class="pt-5 px-5">
-                                            <textarea class="form-control" name="race_description"
-                                                rows="5">{{build.race_description}}</textarea>
+                                        <td colspan="4" id="raceDescription" class="pt-5 ">
+                                            <div class="d-flex flex-column align-items-center gap-1">
+                                                <span class="">Customize your description!</span>
+                                                <textarea class="form-control" name="race_description"
+                                                    rows="5">{{build.race_description}}</textarea>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -80,21 +89,20 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4" id="bgDescription" class="pb-5 px-5">
-                                            <textarea class="form-control" name="bg_description"
-                                                rows="3">{{build.bg_description}}</textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4">
-                                            <div class="d-flex justify-content-center gap-5">
-                                                <input type="hidden" name="build_id" value="{{build.id}}">
-                                                <button type="submit" class="btn btn-primary">Update Build</button>
+                                        <td colspan="4" id="bgDescription" class="">
+                                            <div class="d-flex flex-column align-items-center gap-1">
+                                                Describe your background!
+                                                <textarea class="form-control" name="bg_description"
+                                                    rows="3">{{build.bg_description}}</textarea>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center gap-5">
+                                <input type="hidden" name="build_id" value="{{build.id}}">
+                                <button type="submit" class="btn btn-primary">Update Build</button>
+                            </div>
                         </div>
                         <img src="/static/img/combo_imgs/{{build.img_path}}.jpg" class="combo-img">
                     </div>

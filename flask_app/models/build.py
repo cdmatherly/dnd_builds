@@ -12,6 +12,7 @@ class Build:
         self.race_description = data['race_description']
         self.bg_description = data['bg_description']
         self.img_path = data['img_path']
+        self.build_name = data['build_name']
 
     @classmethod
     def get_builds_by_user(cls, user_id):
@@ -44,13 +45,13 @@ class Build:
     @classmethod
     def create_build(cls, data):
         print(data)
-        query = """INSERT INTO builds (race, build_class, background, proficiencies, race_description, bg_description, img_path, user_id) VALUES (%(race)s, %(buildClass)s, %(background)s, %(proficiencies)s, %(raceDescription)s, %(bgDescription)s, %(img_path)s, %(user_id)s);"""
+        query = """INSERT INTO builds (race, build_class, background, proficiencies, race_description, bg_description, img_path, user_id, build_name) VALUES (%(race)s, %(buildClass)s, %(background)s, %(proficiencies)s, %(raceDescription)s, %(bgDescription)s, %(img_path)s, %(user_id)s, %(build_name)s);"""
         build_id = connectToMySQL(DATABASE).query_db( query, data )
         return build_id
     
     @classmethod
     def update_build(cls, data):
-        query = """UPDATE builds SET race = %(race)s, build_class = %(build_class)s, background = %(background)s, race_description = %(race_description)s, proficiencies = %(proficiencies)s, bg_description = %(bg_description)s, img_path = %(img_path)s WHERE id = %(build_id)s;"""
+        query = """UPDATE builds SET race = %(race)s, build_class = %(build_class)s, background = %(background)s, race_description = %(race_description)s, proficiencies = %(proficiencies)s, bg_description = %(bg_description)s, img_path = %(img_path)s, build_name = %(build_name)s WHERE id = %(build_id)s;"""
         return connectToMySQL(DATABASE).query_db( query, data )
     
     @classmethod

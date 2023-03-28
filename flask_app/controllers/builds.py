@@ -9,10 +9,14 @@ from flask_app.models.build import Build
 @app.route('/builds/save', methods=['POST'])
 def save_build():
     # print(f"FORM DATA >>>>> {request.form}")
+    user_builds = Build.get_builds_by_user(session['user_id']) #check how many builds are currently saved
+    print(user_builds)
     data = {
         **request.form,
-        'img_path': request.form['race'].lower() + '-' + request.form['buildClass'].lower()
+        'img_path': request.form['race'].lower() + '-' + request.form['buildClass'].lower(),
+        'build_name': f"Build {len(user_builds) + 1}"
     }
+    print(data)
     Build.create_build(data)
     return redirect(f"/users/{session['user_id']}/builds")
 
