@@ -50,7 +50,7 @@ class Build:
     
     @classmethod
     def update_build(cls, data):
-        query = """UPDATE builds SET race = %(race)s, build_class = %(build_class)s, background = %(background)s, race_description = %(race_description)s, proficiencies = %(proficiencies)s, bg_description = %(bg_description)s WHERE id = %(build_id)s;"""
+        query = """UPDATE builds SET race = %(race)s, build_class = %(build_class)s, background = %(background)s, race_description = %(race_description)s, proficiencies = %(proficiencies)s, bg_description = %(bg_description)s, img_path = %(img_path)s WHERE id = %(build_id)s;"""
         return connectToMySQL(DATABASE).query_db( query, data )
     
     @classmethod
@@ -63,21 +63,18 @@ class Build:
     
     @staticmethod
     def listify(data):
-        info = data['proficiencies']
-        newList = info.split("\r\n")
-        newString = '['
-        
+        newList = data.split("\r\n") #converts raw input into list, getting rid of empty lines
+        newString = '[' #declares string that will store converted list at the end
         # print(f"OLD LIST ---- {newList}")
         if '' in newList:
-            occurrence = []
+            occurrence = [] #empty array to keep track of indexes where an empty space is found
             for i in range(len(newList)):
-                if newList[i] == '':
-                    occurrence.append(i)
-            for j in range(len(occurrence)-1, -1, -1):
-                newList.pop(occurrence[j])
-        for x in range(len(newList)-1):
-            newString += f"'{newList[x]}', "
-        newString += f"'{newList[len(newList)-1]}'"
-        newString += ']'
-        print(newString)
+                if newList[i] == '': #look for empty space
+                    occurrence.append(i) #add index to list of occurrences
+            for j in range(len(occurrence)-1, -1, -1): #go backwards through occurrences
+                newList.pop(occurrence[j]) #get rid of each occurrence in the list in reverse, to avoid altering length of list and going out of bounds
+        for x in range(len(newList)-1): #go through created list (before last entry)
+            newString += f"'{newList[x]}', " #concatonate string with list entries and a comma
+        newString += f"'{newList[len(newList)-1]}']" #cap off string with last entry
+        # print(newString)
         return newString

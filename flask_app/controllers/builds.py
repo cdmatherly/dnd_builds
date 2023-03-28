@@ -29,13 +29,13 @@ def edit_build(build_id):
 
 @app.route('/builds/update', methods=['POST'])
 def update_build():
-    newList = Build.listify(request.form) #take the input and run in through listify, reassign proficiencies
-    print(f"New List >>>> {newList}")
-    # request.form['proficiencies'] = newList
+    newProf = Build.listify(request.form['proficiencies']) #take the input and run in through listify, reassign proficiencies // returns string
+    # print(f"New String >>>> {newProf}")
     data = {
         **request.form,
-        'proficiencies': newList
+        'proficiencies': newProf, #overwrite proficiencies with our string version
+        'img_path': request.form['race'].lower() + '-' + request.form['build_class'].lower()
     }
-    print(data)
-    Build.update_build(data)
+    # print(data)
+    Build.update_build(data) #pass through info from the form and 
     return redirect(f"/users/{session['user_id']}/builds")

@@ -35,11 +35,15 @@
                                     <tr class="">
                                         <td class="h5 col-1 px-5 align-middle" scope="row">Race:</td>
                                         <td id="race" class="fw-semibold text-start col-2 h4 align-middle eaves">
-                                            <input type="text" class="form-control" name="race" value="{{build.race}}">
+                                            <!-- <input type="text" class="form-control" name="race" value="{{build.race}}"> -->
+                                            <select class="form-select" name="race" id="raceSelect">
+                                                <option selected value="{{build.race}}">{{build.race}}</option>
+                                            </select>
                                         </td>
                                         <td class="h5 col-1 pt-4 align-middle">Proficiencies:</td>
                                         <td id="proficiencies" class="col-3 pt-4 fst-italic" rowspan="3">
-                                            <textarea class="form-control" name="proficiencies" rows="6">{%for each_prof in build.proficiencies%}{{each_prof}}&#10;{%endfor%}</textarea>
+                                            <textarea class="form-control" name="proficiencies"
+                                                rows="6">{%for each_prof in build.proficiencies%}{{each_prof}}&#10;{%endfor%}</textarea>
                                             <!-- {%for each_prof in build.proficiencies%}
                                                 {{each_prof}} <br>
                                             {%endfor%} -->
@@ -48,15 +52,20 @@
                                     <tr class="">
                                         <td class="h5 px-5 align-middle">Class:</td>
                                         <td id="buildClass" class="fw-semibold text-start align-middle h4 eaves">
-                                            <input type="text" class="form-control" name="build_class"
-                                                value="{{build.build_class}}">
+                                            <!-- <input type="text" class="form-control" name="build_class"
+                                                value="{{build.build_class}}"> -->
+                                            <select class="form-select" name="build_class" id="classSelect">
+                                                <option selected value="{{build.build_class}}">{{build.build_class}}</option>
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr class="">
                                         <td class="h5 px-5 align-middle">Background:</td>
                                         <td id="background" class="fw-semibold text-start align-middle h4 eaves">
-                                            <input type="text" class="form-control" name="background"
-                                                value="{{build.background}}">
+                                        <!-- <input type="text" class="form-control" name="background" value="{{build.background}}"> -->
+                                            <select class="form-select" name="background" id="bgSelect">
+                                                <option selected value="{{build.background}}">{{build.background}}</option>
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr>
