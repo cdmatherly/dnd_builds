@@ -5,17 +5,37 @@ var randomBg = bgList[Math.floor(Math.random() * bgList.length)]
 var body = document.querySelector('body')
 body.classList.add(randomBg)
 
+//List options
 var raceList = ["dragonborn", "dwarf", "elf", 'gnome', 'half-elf', 'half-orc', 'halfling', 'human', 'tiefling'];
 var classList = ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard'];
 var backgroundList = ["acolyte", "con-artist", "scoundrel"];
 
-function getData() {
-    //List options
-
+function getData(raceChoice, classChoice, bgChoice) {
+    console.log("Passed through race >> " + raceChoice)
+    console.log("Passed through class >> " + classChoice)
+    console.log("Passed through bg >> " + bgChoice)
     //Randomize an option from each list
-    var raceChoice = raceList[Math.floor(Math.random() * raceList.length)];
-    var bgChoice = backgroundList[Math.floor(Math.random() * backgroundList.length)];
-    var classChoice = classList[Math.floor(Math.random() * classList.length)];
+    var rdmRace = raceList[Math.floor(Math.random() * raceList.length)];
+    var rdmBg = backgroundList[Math.floor(Math.random() * backgroundList.length)];
+    var rdmClass = classList[Math.floor(Math.random() * classList.length)];
+    
+    if (raceChoice == "null" || raceChoice == undefined){
+        raceChoice = rdmRace
+        console.log("Overwritten race >> " + raceChoice)
+    }
+    if (classChoice == "null" || classChoice == undefined){
+        classChoice = rdmClass
+        console.log("Overwritten class >> " + classChoice)
+    }
+    if (bgChoice == "null" || bgChoice == undefined){
+        bgChoice = rdmBg
+        console.log("Overwritten bg >> " + bgChoice)
+    }
+    
+    raceChoice = raceChoice.toLowerCase();
+    classChoice = classChoice.toLowerCase();
+    bgChoice = bgChoice.toLowerCase();
+
     var apiContent = document.querySelector("#api-content")
     apiContent.innerHTML = `
     <div class="table-responsive mx-auto rounded-4 shadow-lg mb-4 pt-2 bg-light bg-opacity-75">
@@ -51,7 +71,7 @@ function getData() {
                             `
     var genBtns = document.querySelector("#genBtns")
     genBtns.classList.remove("flex-column")
-    
+
     Promise.all([ //chained fetch requests for each option
         fetch(`https://www.dnd5eapi.co/api/races/${raceChoice}`).then(response => response.json()).then(function (race) {
             console.log(race);
@@ -157,7 +177,7 @@ function showForm(){
             <!--New options added here-->
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Generate</button>
+    <button type="button" class="btn btn-primary" onclick="newData()">Generate</button>
 </form>`
 
 var raceSelect = document.querySelector("#raceSelect")
@@ -175,4 +195,14 @@ for (var i of backgroundList){
     i = i.charAt(0).toUpperCase() + i.slice(1) //capitalizes the first letter
     bgSelect.innerHTML += `<option value="${i}">${i}</option>` //inserts select option from race list
 }
+}
+
+function newData(){
+    var newRaceChoice = document.querySelector("#raceSelect").value
+    var newClassChoice = document.querySelector("#classSelect").value
+    var newBgChoice = document.querySelector("#bgSelect").value
+    console.log(newRaceChoice)
+    console.log(newClassChoice)
+    console.log(newBgChoice)
+    getData(newRaceChoice, newClassChoice, newBgChoice)
 }
