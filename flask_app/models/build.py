@@ -62,6 +62,30 @@ class Build:
         query = """DELETE FROM builds WHERE id = %(id)s;"""
         return connectToMySQL(DATABASE).query_db( query, data )
     
+    @classmethod
+    def make_build_name(cls, user_builds):
+        def_build_name = f"Build {len(user_builds) + 1}"
+        names_list = {}
+        names_values = names_list.values()
+        print("User Builds:")
+        for build in user_builds:
+            print(build.build_name)
+            names_list[build.id] = build.build_name
+        if def_build_name in names_values:
+            highest_val = 0
+            for name in names_values:
+                if int(name[len(name)-1]) > highest_val:
+                    highest_val = int(name[len(name)-1])
+                print(f"Highest Val = {highest_val}")
+                # print(name[len(name)-1])
+            print("Found it")
+            build_name = f"Build {highest_val+1}"
+        else:
+            build_name = def_build_name
+
+        print(f"Name: {build_name}")
+        return build_name
+    
     @staticmethod
     def listify(data):
         newList = data.split("\r\n") #converts raw input into list, getting rid of empty lines

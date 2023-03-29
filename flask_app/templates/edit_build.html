@@ -27,7 +27,7 @@
             <div class="box">
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-start align-content-center gap-5 mb-3">
-                        <div class="table-responsive rounded-4 border border-secondary border-2 mb-4 py-4 px-5 col-7">
+                        <div class="table-responsive rounded-4 border border-secondary border-2 mb-4 py-4 px-5 col-9">
                             <input type="text" class="form-control fs-3 fw-bold text-center" name="build_name" value="{{build.build_name}}">
                             <table class="table table-borderless">
                                 <tbody>
@@ -104,7 +104,9 @@
                                 <button type="submit" class="btn btn-primary">Update Build</button>
                             </div>
                         </div>
-                        <img src="/static/img/combo_imgs/{{build.img_path}}.jpg" class="combo-img">
+                        <div class="d-flex justify-content-center w-100">
+                            <img src="/static/img/combo_imgs/{{build.img_path}}.jpg" class="combo-img">
+                        </div>
                     </div>
                 </div>
             </div>

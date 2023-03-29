@@ -14,10 +14,10 @@ def save_build():
     data = {
         **request.form,
         'img_path': request.form['race'].lower() + '-' + request.form['buildClass'].lower(),
-        'build_name': f"Build {len(user_builds) + 1}"
+        'build_name': Build.make_build_name(user_builds) 
     }
     print(data)
-    Build.create_build(data)
+    # Build.create_build(data)
     return redirect(f"/users/{session['user_id']}/builds")
 
 @app.route('/builds/delete/<int:build_id>')
