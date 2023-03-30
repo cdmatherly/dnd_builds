@@ -9,8 +9,17 @@ from flask_app.models.build import Build
 @app.route('/builds/save', methods=['POST'])
 def save_build():
     # print(f"FORM DATA >>>>> {request.form}")
+    if 'user_id' not in session:
+        session['race'] = request.form['race']
+        session['buildClass'] = request.form['buildClass']
+        session['background'] = request.form['background']
+        session['proficiencies'] = request.form['proficiencies']
+        session['raceDescription'] = request.form['raceDescription']
+        session['bgDescription'] = request.form['bgDescription']
+        print(session)
+        return redirect('/users/register')
     user_builds = Build.get_builds_by_user(session['user_id']) #check how many builds are currently saved
-    # print(user_builds)
+        
     data = {
         **request.form,
         'img_path': request.form['race'].lower() + '-' + request.form['buildClass'].lower(),
@@ -18,6 +27,35 @@ def save_build():
     }
     # print(data)
     Build.create_build(data)
+    return redirect(f"/users/{session['user_id']}/builds")
+
+@app.route('/builds/save/held')
+def save_held_build():
+    # print(f"FORM DATA >>>>> {request.form}")
+    # if 'user_id' not in session:
+    #     session['race'] = request.form['race']
+    #     session['buildClass'] = request.form['buildClass']
+    #     session['background'] = request.form['background']
+    #     session['proficiencies'] = request.form['proficiencies']
+    #     session['raceDescription'] = request.form['raceDescription']
+    #     session['bgDescription'] = request.form['bgDescription']
+    #     print(session)
+    #     return redirect('/users/register')
+    user_builds = Build.get_builds_by_user(session['user_id']) #check how many builds are currently saved
+        
+    data = {
+        **session,
+        'img_path': session['race'].lower() + '-' + session['buildClass'].lower(),
+        'build_name': Build.make_build_name(user_builds) 
+    }
+    # print(data)
+    Build.create_build(data)
+    session.pop('race')
+    session.pop('buildClass')
+    session.pop('background')
+    session.pop('proficiencies')
+    session.pop('raceDescription')
+    session.pop('bgDescription')
     return redirect(f"/users/{session['user_id']}/builds")
 
 @app.route('/builds/delete/<int:build_id>')

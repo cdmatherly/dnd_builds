@@ -19,11 +19,11 @@
         <nav class="navbar vw-100 navbar-dark bg-dark text-light d-flex justify-content-between align-content-center px-5">
             {% if not 'user_id' in session %}
                 <div>
-                    <p class="h2 mt-2">Welcome!</p>
+                    <p class="h2 mt-2 eaves">Welcome!</p>
                 </div>
             {% else %}
                 <div>
-                    <p class="h2 mt-2">Welcome, {{user.username}}!</p>
+                    <p class="h2 mt-2 eaves">Welcome, {{user.username}}!</p>
                 </div>
             {% endif %}
             <div class="text-light d-flex gap-3">
@@ -51,7 +51,7 @@
                     {% if 'user_id' in session %}
                         <button type="submit" id="saveButton" class="btn btn-primary visually-hidden">Save Build</button>
                     {% else %}
-                        <p class="h5 visually-hidden text-light shadow-lg" id="warning">You must <a href="/users/register">register</a> to save your builds</p>
+                        <p class="h5 visually-hidden text-light shadow-lg" id="warning">You must <button class="btn text-primary text-decoration-underline fs-5" type="submit">register</button> to save your builds</p>
                     {% endif %}
                 </form>
                 <div class="d-flex flex-column gap-2 mt-2 mb-5 justify-content-center align-item-center" id="genBtns">

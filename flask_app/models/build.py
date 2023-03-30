@@ -50,6 +50,10 @@ class Build:
         return build_id
     
     @classmethod
+    def hold_build(cls, form):
+        pass
+        
+    @classmethod
     def update_build(cls, data):
         query = """UPDATE builds SET race = %(race)s, build_class = %(build_class)s, background = %(background)s, race_description = %(race_description)s, proficiencies = %(proficiencies)s, bg_description = %(bg_description)s, img_path = %(img_path)s, build_name = %(build_name)s WHERE id = %(build_id)s;"""
         return connectToMySQL(DATABASE).query_db( query, data )

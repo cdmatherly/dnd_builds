@@ -20,6 +20,7 @@ def go_to_login():
 
 @app.route('/users/register')
 def go_to_register():
+    print(f"Registration Screen\n{session}")
     return render_template('register.html')
 
 @app.route('/users/create', methods=['POST'])
@@ -35,8 +36,19 @@ def create_user():
     }
     user_id = User.save(user_data)
     session['user_id'] = user_id
-
+    if 'race' in session:
+        return redirect('/builds/save/held')
     return redirect('/')
+
+@app.route('/users/hold_build')
+def hold_build():
+    session['race'] = request.form['race']
+    session['buildClass'] = request.form['buildClass']
+    session['background'] = request.form['background']
+    session['proficiencies'] = request.form['proficiencies']
+    session['raceDescription'] = request.form['raceDescription']
+    session['bg_description'] = request.form['bg_description']
+    return redirect('/users/register')
 
 @app.route('/users/login/go', methods=['POST'])
 def login_user():
