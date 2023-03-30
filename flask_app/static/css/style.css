@@ -55,7 +55,9 @@
     height: 400px;
     margin-top: 7rem;
 }
-
+#modalBtn {
+    margin: 1rem 0;
+}
 /* The Modal (background) */
 .modal {
     display: none;
@@ -81,7 +83,7 @@
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 1rem auto;
     /* 15% from the top and centered */
     padding: 1rem 2rem 1.5rem 2rem;
     border: 1px solid #888;

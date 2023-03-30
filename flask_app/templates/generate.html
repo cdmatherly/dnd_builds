@@ -31,8 +31,7 @@
                     <a class="btn btn-secondary" href="/users/register">Register</a>
                     <a class="btn btn-secondary" href="/users/login">Login</a>
                 {% else %}
-                    <a name="" id="" class="btn btn-success" href="/users/{{session['user_id']}}/builds"
-                        role="button">Saved Builds</a>
+                    <a name="" id="" class="btn btn-success" href="/users/{{session['user_id']}}/builds" role="button">Saved Builds</a>
                     <a class="btn btn-outline-danger" href="/logout">Logout</a>
                 {% endif %}
             </div>

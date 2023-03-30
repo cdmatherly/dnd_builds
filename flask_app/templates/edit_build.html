@@ -18,6 +18,7 @@
         <nav class="navbar vw-100 navbar-dark bg-dark text-light d-flex justify-content-end px-5 mb-5">
             <div class="text-light d-flex gap-3">
                 <a class="btn btn-secondary" href="/">Generate</a>
+                <a name="" id="" class="btn btn-success" href="/users/{{session['user_id']}}/builds" role="button">Saved Builds</a>
                 <a class="btn btn-outline-danger" href="/logout">Logout</a>
             </div>
         </nav>
@@ -118,17 +119,17 @@
             Art Sources
         </button>
         <!-- The Modal -->
-        <div id="sourcesModal" class="modal">
+        <div id="sourcesModal" class="modal text-center">
 
             <!-- Modal content -->
             <div class="modal-content">
                 <i class="bi bi-x-square-fill close"></i>
-                <p id="modal-text">Filler</p>
+                <div class="modal-text"></div>
             </div>
 
         </div>
     </footer>
-    <script type="text/javascript" src="{{ url_for('static', filename='/js/saved_builds.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/edit_build.js') }}"></script>
 </body>
 
 </html>
