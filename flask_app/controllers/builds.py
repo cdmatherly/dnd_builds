@@ -26,7 +26,8 @@ def save_build():
         'build_name': Build.make_build_name(user_builds) 
     }
     # print(data)
-    Build.create_build(data)
+    new_build_id = Build.create_build(data)
+    session['new_build_id'] = new_build_id
     return redirect(f"/users/{session['user_id']}/builds")
 
 @app.route('/builds/save/held')
@@ -60,13 +61,17 @@ def save_held_build():
 
 @app.route('/builds/delete/<int:build_id>')
 def delete_build(build_id):
+    deleted_build = Build.get_build_by_id(build_id)
+    next_build = Build.find_next_build(deleted_build)
     Build.delete_build(build_id)
+    session['new_build_id'] = next_build.id
     return redirect(f"/users/{session['user_id']}/builds")
 
 @app.route('/builds/edit/<int:build_id>')
 def edit_build(build_id):
     this_build = Build.get_build_by_id(build_id)
-    print(this_build.proficiencies)
+    # print(this_build.proficiencies)
+    session['new_build_id'] = build_id
     return render_template("edit_build.html", build = this_build)
 
 @app.route('/builds/update', methods=['POST'])

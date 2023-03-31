@@ -12,6 +12,8 @@ def index():
         # print(logged_user)
     else:
         logged_user = 0
+    if 'new_build_id' in session:
+        session.pop('new_build_id')
     return render_template('generate.html', user = logged_user)
 
 @app.route('/users/login')

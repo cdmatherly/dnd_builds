@@ -1,6 +1,21 @@
 console.log('linked')
 
+// function findNewestBuild(){
+//     var buildTable = document.querySelectorAll(".build-table") //grabs all displayed build tables
+//     var newestBuildId = 0
+//     for (var table of buildTable){ //loops through them and finds the highest id
+//         if (table.id > newestBuildId){
+//             newestBuildId = table.id
+//         } 
+//         console.log(table.id)
+//     }
+//     console.log(newestBuildId)
+//     var newestBuild = document.getElementById(`${newestBuildId}`) //grabs the newest build by id
+//     console.log(newestBuild)
+//     newestBuild.scrollIntoView({behavior: 'smooth', block:'center'}) //scrolls to the newest build
+// }
 
+// findNewestBuild()
 
 // Get the modal
 var modal = document.getElementById("sourcesModal");

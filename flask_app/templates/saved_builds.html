@@ -25,13 +25,12 @@
     <main>
         <div class="box">
             <p class="h1 mb-5 eaves">{{user.username}}'s builds:</p>
-
             <div class="d-flex flex-column align-items-center">
                 {% if all_builds|length == 0 %}
                     <p class="h2 eaves bg-secondary bg-opacity-25 rounded-4 p-4 shadow">Try saving some builds!</p>
                 {% endif %}
                 {% for index in range(all_builds|length)%} {# gets length of all_builds in jinja #}
-                <div class="d-flex justify-content-start align-content-center gap-5 mb-3">
+                <div id="{{all_builds[index].id}}" class="build-table d-flex justify-content-start align-content-center gap-5 mb-3">
                     <p class="fs-4 col-1">{{all_builds[index].build_name}}:</p>
                     <div class="table-responsive rounded-4 border border-secondary border-2 mb-4 pt-2">
                         <table class="table table-borderless">
@@ -100,6 +99,17 @@
 
         </div>
     </footer>
+    {% if 'new_build_id' in session %}
+    <script>
+    function findNewestBuild(){
+        var newestBuildId = {{session['new_build_id']}}
+        console.log(newestBuildId)
+        document.getElementById(`${newestBuildId}`).scrollIntoView({ behavior: "instant", block: "center", inline: "nearest" }) //scrolls to the newest build
+    }
+
+    findNewestBuild()
+    </script>
+    {% endif %}
     <script type="text/javascript" src="{{ url_for('static', filename='/js/saved_builds.js') }}"></script>
 </body>
 

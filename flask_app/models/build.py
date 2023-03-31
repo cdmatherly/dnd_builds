@@ -13,6 +13,7 @@ class Build:
         self.bg_description = data['bg_description']
         self.img_path = data['img_path']
         self.build_name = data['build_name']
+        self.user_id = data['user_id']
 
     @classmethod
     def get_builds_by_user(cls, user_id):
@@ -50,10 +51,6 @@ class Build:
         return build_id
     
     @classmethod
-    def hold_build(cls, form):
-        pass
-        
-    @classmethod
     def update_build(cls, data):
         query = """UPDATE builds SET race = %(race)s, build_class = %(build_class)s, background = %(background)s, race_description = %(race_description)s, proficiencies = %(proficiencies)s, bg_description = %(bg_description)s, img_path = %(img_path)s, build_name = %(build_name)s WHERE id = %(build_id)s;"""
         return connectToMySQL(DATABASE).query_db( query, data )
@@ -64,7 +61,8 @@ class Build:
             'id': build_id
         }
         query = """DELETE FROM builds WHERE id = %(id)s;"""
-        return connectToMySQL(DATABASE).query_db( query, data )
+        connectToMySQL(DATABASE).query_db( query, data )
+        return build_id
     
     @classmethod
     def make_build_name(cls, user_builds):
@@ -92,6 +90,18 @@ class Build:
 
         print(f"Name: {build_name}")
         return build_name
+    
+    @classmethod
+    def find_next_build(cls, deleted_build):
+        print(f"DELETED BUILD'S USER >> {deleted_build.user_id}")
+        print(f"DELETED BUILD'S ID >> {deleted_build.id}")
+        all_builds = cls.get_builds_by_user(deleted_build.user_id)
+        for idx in range(len(all_builds)):
+            print(all_builds[idx].id)
+            if all_builds[idx].id == deleted_build.id:
+                next_build = all_builds[idx+1]
+                print(f"Next build >> {next_build.id}")
+        return next_build
     
     @staticmethod
     def listify(data):
