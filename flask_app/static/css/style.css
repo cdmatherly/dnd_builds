@@ -56,7 +56,10 @@
     margin-top: 7rem;
 }
 #modalBtn {
-    margin: 1rem 0;
+    margin: 1rem;
+    position: fixed;
+    right: 0;
+    bottom: 0;
 }
 /* The Modal (background) */
 .modal {

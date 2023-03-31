@@ -72,6 +72,9 @@ def edit_build(build_id):
 @app.route('/builds/update', methods=['POST'])
 def update_build():
     newProf = Build.listify(request.form['proficiencies']) #take the input and run in through listify, reassign proficiencies // returns string
+    # is_valid = Build.validate(request.form)
+    # if not is_valid:
+    #     return redirect(f"/builds/edit/{request.form['id']}")
     # print(f"New String >>>> {newProf}")
     data = {
         **request.form,

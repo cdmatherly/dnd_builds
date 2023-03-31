@@ -110,3 +110,10 @@ class Build:
         newString += f"'{newList[len(newList)-1]}']" #cap off string with last entry
         # print(newString)
         return newString
+    
+    # @staticmethod
+    # def validate(data):
+    #     is_valid = True
+    #     if data['build_name']:
+    #         pass
+    #     return is_valid
