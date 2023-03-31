@@ -63,8 +63,11 @@ def save_held_build():
 def delete_build(build_id):
     deleted_build = Build.get_build_by_id(build_id)
     next_build = Build.find_next_build(deleted_build)
-    Build.delete_build(build_id)
-    session['new_build_id'] = next_build.id
+    if not next_build:
+        Build.delete_build(build_id)
+    else:
+        Build.delete_build(build_id)
+        session['new_build_id'] = next_build.id
     return redirect(f"/users/{session['user_id']}/builds")
 
 @app.route('/builds/edit/<int:build_id>')

@@ -96,11 +96,12 @@ class Build:
         print(f"DELETED BUILD'S USER >> {deleted_build.user_id}")
         print(f"DELETED BUILD'S ID >> {deleted_build.id}")
         all_builds = cls.get_builds_by_user(deleted_build.user_id)
-        for idx in range(len(all_builds)):
+        next_build = False
+        for idx in range(len(all_builds) - 1):
             print(all_builds[idx].id)
             if all_builds[idx].id == deleted_build.id:
-                next_build = all_builds[idx+1]
-                print(f"Next build >> {next_build.id}")
+                    next_build = all_builds[idx+1]
+                    print(f"Next build >> {next_build.id}")
         return next_build
     
     @staticmethod
