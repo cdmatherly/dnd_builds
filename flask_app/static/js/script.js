@@ -133,8 +133,12 @@ function getData(raceChoice, classChoice, bgChoice) {
         var proficienciesInput = document.querySelector("#proficienciesInput");
         proficienciesHTML.innerHTML = `` //resets proficiencies list on every API call
         proficienciesInput.value = `[` //resets proficiencies input on every API call
-        if (buildClass == "rogue") {
-            proficiencies.pop()
+        if (buildClass.index == "rogue") { //check if the class is rogue
+            // console.log("OH NO!")
+            // console.log(proficiencies)
+            for (var idx of proficiencies){
+                idx.name = idx.name.replace("'", "") //look for ' in proficiency names and get rid of them
+            }
         }
         proficienciesInput.value += `'${proficiencies[0].name}'`;
         for (var i = 1; i < proficiencies.length - 1; i++) { // Loop through every proficiency and add it individually
