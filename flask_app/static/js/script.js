@@ -167,8 +167,14 @@ function getData(raceChoice, classChoice, bgChoice) {
         var imgPath = race + "-" + buildClass
         console.log(imgPath)
         var imgHTML = document.querySelector("#img")
-        imgHTML.innerHTML = 
-        `<a href="${sourcesObj[imgPath]}" target="_blank" rel="noreferrer noopener"><img src="/static/img/combo_imgs/${imgPath}.jpg" class="gen-img"></a>`
+        if (imgPath in sourcesObj){ //check if we have a source for specific image
+            imgHTML.innerHTML = 
+            `<a href="${sourcesObj[imgPath]}" target="_blank" rel="noreferrer noopener"><img src="/static/img/combo_imgs/${imgPath}.jpg" class="gen-img"></a>`
+        }
+        else {
+            imgHTML.innerHTML = 
+            `<img src="/static/img/combo_imgs/${imgPath}.jpg" class="gen-img"></img>`
+        }
     }
 
     findImgPath()
