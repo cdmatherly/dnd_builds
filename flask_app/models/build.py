@@ -78,10 +78,13 @@ class Build:
         if def_build_name in names_values:
             highest_val = 0
             for name in names_values:
-                if int(name[len(name)-1]) > highest_val:
-                    highest_val = int(name[len(name)-1])
+                # print(name[-2::])
+                try: #test to see if the last two values in a build's name can be converted to an int
+                    if int(name[-2::]) > highest_val:
+                        highest_val = int(name[-2::]) #sets new highest value if the ending number is higher than any previous
+                except: #if it can't convert into int, print NaN and skip
+                    print(f"'{name[-2::]}' is not a number")
                 print(f"Highest Val = {highest_val}")
-                # print(name[len(name)-1])
             print("Found it")
             build_name = f"Build {highest_val+1}"
         else:

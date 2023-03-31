@@ -39,7 +39,7 @@ function getData(raceChoice, classChoice, bgChoice) {
         bgChoice = rdmBg
         console.log("Overwritten bg >> " + bgChoice)
     }
-
+// Lowercase all choices
     raceChoice = raceChoice.toLowerCase();
     classChoice = classChoice.toLowerCase();
     bgChoice = bgChoice.toLowerCase();
@@ -93,12 +93,25 @@ function getData(raceChoice, classChoice, bgChoice) {
         }),
         fetch(`https://www.dnd5eapi.co/api/classes/${classChoice}`).then(response => response.json()).then(function (buildClass) {
             console.log(buildClass);
+            var proficiencies = buildClass.proficiencies
+            console.log(buildClass.proficiency_choices[0].desc)
+            // console.log(proficiencies[0].name);
             var buildClassHTML = document.querySelector("#buildClass");
-            // var imgPath = document.querySelector("#img-path");
             buildClassHTML.innerHTML = `${buildClass.name}`;
             apiContent.innerHTML += `<input type="hidden" class="form" name="buildClass" id="" value="${buildClass.name}">`;
-            // imgPath.value += `-${buildClass.name.toLowerCase()}`;
-            // console.log(imgPath.value)
+            var proficienciesHTML = document.querySelector("#proficiencies");
+            var proficienciesInput = document.querySelector("#proficienciesInput");
+            // proficienciesHTML.innerHTML = `` //resets proficiencies list on every API call
+            // proficienciesInput.value = `` //resets proficiencies input on every API call
+            if (buildClass == "rogue") {
+                proficiencies.pop()
+            }
+            proficienciesInput.value += `'${proficiencies[0].name}'`;
+            for (var i = 1; i < proficiencies.length - 1; i++) { // Loop through every proficiency and add it individually
+                proficienciesHTML.innerHTML += `${proficiencies[i].name} <br>`;
+                proficienciesInput.value += `, '${proficiencies[i].name}'`;
+            }
+            proficienciesInput.value += `, '${proficiencies[i].name}']`;
         }),
         fetch(`https://api.open5e.com/backgrounds/${bgChoice}/?format=json`).then(response => response.json()).then(function (background) {
             console.log(background);
@@ -114,23 +127,25 @@ function getData(raceChoice, classChoice, bgChoice) {
             var raceDescriptionHTML = document.querySelector("#raceDescription");
             raceDescriptionHTML.innerHTML = `${raceDescription.alignment} <br> <br> ${raceDescription.age} <br> <br> ${raceDescription.size_description} <br> <br> ${raceDescription.language_desc}`;
             apiContent.innerHTML += `<input type="hidden" class="form" name="raceDescription" id="" value="${raceDescription.alignment} ${raceDescription.age} ${raceDescription.size_description} ${raceDescription.language_desc}">`;
-        }),
-        fetch(`https://www.dnd5eapi.co/api/classes/${classChoice}/proficiencies`).then(response => response.json()).then(function (proficiencies) {
-            var proficienciesList = proficiencies.results;
-            console.log(proficienciesList);
-            var proficienciesHTML = document.querySelector("#proficiencies");
-            var proficienciesInput = document.querySelector("#proficienciesInput");
-            proficienciesHTML.innerHTML = ``
-            if (classChoice == "rogue") {
-                proficienciesList.pop()
-            }
-            proficienciesInput.value += `'${proficienciesList[0].name}'`;
-            for (var i = 1; i < proficienciesList.length - 1; i++) { // Loop through every proficiency and add it individually
-                proficienciesHTML.innerHTML += `${proficienciesList[i].name} <br>`;
-                proficienciesInput.value += `, '${proficienciesList[i].name}'`;
-            }
-            proficienciesInput.value += `, '${proficienciesList[i].name}']`;
-        })])
+        })
+        // ,
+        // fetch(`https://www.dnd5eapi.co/api/classes/${classChoice}/proficiencies`).then(response => response.json()).then(function (proficiencies) {
+        //     var proficienciesList = proficiencies.results;
+        //     console.log(proficienciesList);
+        //     var proficienciesHTML = document.querySelector("#proficiencies");
+        //     var proficienciesInput = document.querySelector("#proficienciesInput");
+        //     proficienciesHTML.innerHTML = ``
+        //     if (classChoice == "rogue") {
+        //         proficienciesList.pop()
+        //     }
+        //     proficienciesInput.value += `'${proficienciesList[0].name}'`;
+        //     for (var i = 1; i < proficienciesList.length - 1; i++) { // Loop through every proficiency and add it individually
+        //         proficienciesHTML.innerHTML += `${proficienciesList[i].name} <br>`;
+        //         proficienciesInput.value += `, '${proficienciesList[i].name}'`;
+        //     }
+        //     proficienciesInput.value += `, '${proficienciesList[i].name}']`;
+        // })
+    ])
         .catch(err => console.log(err))
 }
 
