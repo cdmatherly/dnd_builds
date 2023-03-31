@@ -26,7 +26,10 @@
         <div class="box">
             <p class="h1 mb-5 eaves">{{user.username}}'s builds:</p>
 
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column align-items-center">
+                {% if all_builds|length == 0 %}
+                    <p class="h2 eaves bg-secondary bg-opacity-25 rounded-4 p-4 shadow">Try saving some builds!</p>
+                {% endif %}
                 {% for index in range(all_builds|length)%} {# gets length of all_builds in jinja #}
                 <div class="d-flex justify-content-start align-content-center gap-5 mb-3">
                     <p class="fs-4 col-1">{{all_builds[index].build_name}}:</p>
