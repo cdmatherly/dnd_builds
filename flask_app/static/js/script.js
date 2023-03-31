@@ -46,74 +46,84 @@ function getData(raceChoice, classChoice, bgChoice) {
 
     apiContent.innerHTML = `
     <div class="table-responsive mx-auto rounded-4 shadow-lg mb-4 pt-2 bg-light bg-opacity-75">
-                                <table class="table table-borderless">
-                                    <tbody>
-                                        <tr class="">
-                                            <td class="h5 col-1 px-5 align-middle fw-bold" scope="row">Race:</td>
-                                            <td id="race" class="fw-semibold text-start col-1 fs-2 align-middle eaves"> </td>
-                                            <td class="h5 col-1 px-5 pt-4 fw-bold">Proficiencies:</td>
-                                            <td id="proficiencies" class="col-2 pt-4 fst-italic" rowspan="3"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td class="h5 px-5 align-middle fw-bold">Class:</td>
-                                            <td id="buildClass" class="fw-semibold text-start align-middle fs-2 eaves"> </td>
-                                        </tr>
-                                        <tr class="">
-                                            <td class="h5 px-5 align-middle fw-bold">Background:</td>
-                                            <td id="background" class="fw-semibold text-start align-middle fs-2 eaves"></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" id="raceDescription" class="pt-5 px-5"></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4"><hr></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" id="bgDescription" class="pb-5 px-5"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <input type="hidden" class="form" name="proficiencies" id="proficienciesInput" value = "[">
-                            </div>
-                            `
+        <table class="table table-borderless">
+            <tbody>
+                <tr class="">
+                    <td class="h5 col-1 px-5 align-middle fw-bold title-row" scope="row">Race:</td>
+                    <td id="race" class="fw-semibold text-start col-2 fs-2 align-middle eaves"> </td>
+                    <td class="h5 col-1 px-5 fw-bold align-middle">Proficiencies:</td>
+                    <td id="proficiencies" class="col-2 pt-4 fst-italic" rowspan="3"></td>
+                    <td id="img" class="col-2 align-middle text-center" rowspan="4"></td>
+                </tr>
+                <tr class="">
+                <td class="h5 px-5 align-middle fw-bold title-row">Class:</td>
+                <td id="buildClass" class="fw-semibold text-start align-middle fs-2 eaves"> </td>
+                </tr>
+                <tr class="">
+                <td class="h5 px-5 align-middle fw-bold title-row">Background:</td>
+                <td id="background" class="fw-semibold text-start align-middle fs-2 eaves"></td>
+                </tr>
+                <tr>
+                <td colspan="4" id="raceDescription" class="pt-2 px-5"></td>
+                </tr>
+                <tr>
+                    <td colspan="5"><hr></td>
+                </tr>
+                <tr>
+                    <td colspan="5" id="bgDescription" class="pb-3 px-5"></td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="hidden" class="form" name="proficiencies" id="proficienciesInput" value = "[">
+    </div>
+    `
     genBtn2.classList.remove("visually-hidden")
     genBtns.classList.remove("flex-column")
-
+    
     showSave()
+    // var raceHTML = document.querySelector("#race"); //grab 'race' td from above
 
-    Promise.all([ //chained fetch requests for each option
-        fetch(`https://www.dnd5eapi.co/api/races/${raceChoice}`).then(response => response.json()).then(function (race) {
-            console.log(race);
-            var raceHTML = document.querySelector("#race"); //grab 'race' td from above
-            // var imgPath = document.querySelector("#img-path");
-            raceHTML.innerHTML = `${race.name}`; //set its innerHTML to our populated race
-            apiContent.innerHTML += `<input type="hidden" name="race" value=${race.name}>`; //set a corresponding hidden input to submit to the database
-            // imgPath.value = race.name.toLowerCase();
-            // console.log(imgPath.value)
-        }),
-        fetch(`https://www.dnd5eapi.co/api/classes/${classChoice}`).then(response => response.json()).then(function (buildClass) {
-            console.log(buildClass);
-            var proficiencies = buildClass.proficiencies
-            console.log(buildClass.proficiency_choices[0].desc)
-            // console.log(proficiencies[0].name);
-            var buildClassHTML = document.querySelector("#buildClass");
-            buildClassHTML.innerHTML = `${buildClass.name}`;
-            apiContent.innerHTML += `<input type="hidden" class="form" name="buildClass" id="" value="${buildClass.name}">`;
-            var proficienciesHTML = document.querySelector("#proficiencies");
-            var proficienciesInput = document.querySelector("#proficienciesInput");
-            // proficienciesHTML.innerHTML = `` //resets proficiencies list on every API call
-            // proficienciesInput.value = `` //resets proficiencies input on every API call
-            if (buildClass == "rogue") {
-                proficiencies.pop()
-            }
-            proficienciesInput.value += `'${proficiencies[0].name}'`;
-            for (var i = 1; i < proficiencies.length - 1; i++) { // Loop through every proficiency and add it individually
-                proficienciesHTML.innerHTML += `${proficiencies[i].name} <br>`;
-                proficienciesInput.value += `, '${proficiencies[i].name}'`;
-            }
-            proficienciesInput.value += `, '${proficiencies[i].name}']`;
-        }),
-        fetch(`https://api.open5e.com/backgrounds/${bgChoice}/?format=json`).then(response => response.json()).then(function (background) {
+    async function getRace(){
+        var response = await fetch(`https://www.dnd5eapi.co/api/races/${raceChoice}`)
+        var race = await response.json()
+        console.log(race);
+        var raceHTML = document.querySelector("#race"); //grab 'race' td from above
+        raceHTML.innerHTML = `${race.name}`; //set its innerHTML to our populated race
+        apiContent.innerHTML += `<input type="hidden" name="race" value=${race.name}>`; //set a corresponding hidden input to submit to the database
+        var raceDescriptionHTML = document.querySelector("#raceDescription");
+        raceDescriptionHTML.innerHTML = `${race.alignment} <br> <br> ${race.age} <br> <br> ${race.size_description} <br> <br> ${race.language_desc}`;
+        apiContent.innerHTML += `<input type="hidden" class="form" name="raceDescription" id="" value="${race.alignment} ${race.age} ${race.size_description} ${race.language_desc}">`;
+        return race.index
+    }
+    async function getClass(){
+        var response = await fetch(`https://www.dnd5eapi.co/api/classes/${classChoice}`)
+        var buildClass = await response.json()
+        console.log(buildClass);
+        var proficiencies = buildClass.proficiencies
+        console.log(buildClass.proficiency_choices[0].desc)
+        // console.log(proficiencies[0].name);
+        var buildClassHTML = document.querySelector("#buildClass");
+        buildClassHTML.innerHTML = `${buildClass.name}`;
+        apiContent.innerHTML += `<input type="hidden" class="form" name="buildClass" id="" value="${buildClass.name}">`;
+        var proficienciesHTML = document.querySelector("#proficiencies");
+        var proficienciesInput = document.querySelector("#proficienciesInput");
+        proficienciesHTML.innerHTML = `` //resets proficiencies list on every API call
+        proficienciesInput.value = `` //resets proficiencies input on every API call
+        if (buildClass == "rogue") {
+            proficiencies.pop()
+        }
+        proficienciesInput.value += `'${proficiencies[0].name}'`;
+        for (var i = 1; i < proficiencies.length - 1; i++) { // Loop through every proficiency and add it individually
+            proficienciesHTML.innerHTML += `${proficiencies[i].name} <br>`;
+            proficienciesInput.value += `, '${proficiencies[i].name}'`;
+        }
+        proficienciesInput.value += `, '${proficiencies[i].name}']`;
+        return buildClass.index
+    }
+
+    async function getBackground(){
+        var response = await fetch(`https://api.open5e.com/backgrounds/${bgChoice}/?format=json`)
+        var background = await response.json()
             console.log(background);
             var backgroundHTML = document.querySelector("#background");
             var bgDescription = document.querySelector("#bgDescription")
@@ -121,13 +131,68 @@ function getData(raceChoice, classChoice, bgChoice) {
             bgDescription.innerHTML = `${background.desc}`;
             apiContent.innerHTML += `<input type="hidden" class="form" name="background" id="" value="${background.name}">`;
             apiContent.innerHTML += `<input type="hidden" class="form" name="bgDescription" id="" value="${background.desc}">`;
-        }),
-        fetch(`https://www.dnd5eapi.co/api/races/${raceChoice}`).then(response => response.json()).then(function (raceDescription) {
-            console.log(raceDescription);
-            var raceDescriptionHTML = document.querySelector("#raceDescription");
-            raceDescriptionHTML.innerHTML = `${raceDescription.alignment} <br> <br> ${raceDescription.age} <br> <br> ${raceDescription.size_description} <br> <br> ${raceDescription.language_desc}`;
-            apiContent.innerHTML += `<input type="hidden" class="form" name="raceDescription" id="" value="${raceDescription.alignment} ${raceDescription.age} ${raceDescription.size_description} ${raceDescription.language_desc}">`;
-        })
+    }
+    async function findImgPath(){
+        var race = await getRace()
+        var buildClass = await getClass()
+        var imgPath = race + "-" + buildClass
+        console.log(imgPath)
+        var imgHTML = document.querySelector("#img")
+        imgHTML.innerHTML = 
+        `<img src="/static/img/combo_imgs/${imgPath}.jpg" class="gen-img">`
+    }
+
+    findImgPath()
+    getRace()
+    getClass()
+    getBackground()
+
+/*
+    // Promise.all([ //chained fetch requests for each option
+        // fetch(`https://www.dnd5eapi.co/api/races/${raceChoice}`).then(response => response.json()).then(function (race) {
+        //     console.log(race);
+        //     var raceHTML = document.querySelector("#race"); //grab 'race' td from above
+        //     // var imgPath = document.querySelector("#img-path");
+        //     raceHTML.innerHTML = `${race.name}`; //set its innerHTML to our populated race
+        //     apiContent.innerHTML += `<input type="hidden" name="race" value=${race.name}>`; //set a corresponding hidden input to submit to the database
+        // }),
+        // fetch(`https://www.dnd5eapi.co/api/classes/${classChoice}`).then(response => response.json()).then(function (buildClass) {
+        //     console.log(buildClass);
+        //     var proficiencies = buildClass.proficiencies
+        //     console.log(buildClass.proficiency_choices[0].desc)
+        //     // console.log(proficiencies[0].name);
+        //     var buildClassHTML = document.querySelector("#buildClass");
+        //     buildClassHTML.innerHTML = `${buildClass.name}`;
+        //     apiContent.innerHTML += `<input type="hidden" class="form" name="buildClass" id="" value="${buildClass.name}">`;
+        //     var proficienciesHTML = document.querySelector("#proficiencies");
+        //     var proficienciesInput = document.querySelector("#proficienciesInput");
+        //     // proficienciesHTML.innerHTML = `` //resets proficiencies list on every API call
+        //     // proficienciesInput.value = `` //resets proficiencies input on every API call
+        //     if (buildClass == "rogue") {
+        //         proficiencies.pop()
+        //     }
+        //     proficienciesInput.value += `'${proficiencies[0].name}'`;
+        //     for (var i = 1; i < proficiencies.length - 1; i++) { // Loop through every proficiency and add it individually
+        //         proficienciesHTML.innerHTML += `${proficiencies[i].name} <br>`;
+        //         proficienciesInput.value += `, '${proficiencies[i].name}'`;
+        //     }
+        //     proficienciesInput.value += `, '${proficiencies[i].name}']`;
+        // }),
+        // fetch(`https://api.open5e.com/backgrounds/${bgChoice}/?format=json`).then(response => response.json()).then(function (background) {
+        //     console.log(background);
+        //     var backgroundHTML = document.querySelector("#background");
+        //     var bgDescription = document.querySelector("#bgDescription")
+        //     backgroundHTML.innerHTML = `${background.name}`;
+        //     bgDescription.innerHTML = `${background.desc}`;
+        //     apiContent.innerHTML += `<input type="hidden" class="form" name="background" id="" value="${background.name}">`;
+        //     apiContent.innerHTML += `<input type="hidden" class="form" name="bgDescription" id="" value="${background.desc}">`;
+        // }),
+        // fetch(`https://www.dnd5eapi.co/api/races/${raceChoice}`).then(response => response.json()).then(function (raceDescription) {
+        //     console.log(raceDescription);
+        //     var raceDescriptionHTML = document.querySelector("#raceDescription");
+        //     raceDescriptionHTML.innerHTML = `${raceDescription.alignment} <br> <br> ${raceDescription.age} <br> <br> ${raceDescription.size_description} <br> <br> ${raceDescription.language_desc}`;
+        //     apiContent.innerHTML += `<input type="hidden" class="form" name="raceDescription" id="" value="${raceDescription.alignment} ${raceDescription.age} ${raceDescription.size_description} ${raceDescription.language_desc}">`;
+        // })
         // ,
         // fetch(`https://www.dnd5eapi.co/api/classes/${classChoice}/proficiencies`).then(response => response.json()).then(function (proficiencies) {
         //     var proficienciesList = proficiencies.results;
@@ -145,8 +210,9 @@ function getData(raceChoice, classChoice, bgChoice) {
         //     }
         //     proficienciesInput.value += `, '${proficienciesList[i].name}']`;
         // })
-    ])
-        .catch(err => console.log(err))
+    // ])
+        // .catch(err => console.log(err))
+        */
 }
 
 function showSave() {

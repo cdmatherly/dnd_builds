@@ -33,20 +33,20 @@ window.onclick = function (event) {
 var sourcesUrl = '/static/img/combo_imgs/sources.txt'
 fetch(sourcesUrl)
     .then( r => r.text())
-    .then( function(sources){
+    .then( function(sources){ //grabs the text file's content
         // console.log(sources)
-        sources = sources.split(',')
+        sources = sources.split(',') //makes a list from each line separated by a comma
         // console.log(sources)
         var arr = []
         for (each_source of sources){
-            each_source = each_source.split('-- ')
-            each_source[0] = each_source[0].replace('-', " ")
-            each_source[0] = each_source[0].replace('-', " ")
-            arr.push(each_source)
+            each_source = each_source.split('-- ') //makes a new list separating at "-- " and just lists the name/source pairs
+            console.log(each_source[0])
+            arr.push(each_source) //pushes each name/source pair array into larger array
             // modalContent.innerHTML += `<p>${each_source}</p>`
         }
-        obj = Object.fromEntries(arr)
-        for (each_entry in obj){
-            modalContent.innerHTML += `<p">${each_entry}: <a href='${obj[each_entry]}'>Source</a></p>`
+        sourcesObj = Object.fromEntries(arr) //makes new object from each individual name/source array within the bigger array
+        for (each_entry in sourcesObj){
+            modalContent.innerHTML += `<p">${each_entry.replace('-',' ').replace('-',' ')}: <a href='${sourcesObj[each_entry]}'>Source</a></p>` 
+            // * '.replace' gets rid of all hyphens (do it twice for instances like half-orc or half-elf where there are hyphens twice)
         }
     })

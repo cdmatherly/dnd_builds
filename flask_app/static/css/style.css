@@ -8,25 +8,50 @@
     font-style: normal;
 }
 
+body {
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 .bg-1 {
+    background-color: black;
     background-image: url(/static/img/dnd_bg1.jpg);
     background-repeat: no-repeat;
     background-size: auto auto;
 }
 
 .bg-2 {
+    background-color: black;
     background-image: url(/static/img/dnd_bg2.jpg);
     background-repeat: no-repeat;
     background-size: auto auto;
 }
 
 .bg-3 {
+    background-color: black;
     background-image: url(/static/img/dnd_bg3.jpg);
     background-repeat: no-repeat;
     background-size: auto auto;
 }
 
 .bg-4 {
+    background-color: black;
     background-image: url(/static/img/dnd_bg4.jpg);
     background-repeat: no-repeat;
     background-size: auto auto;
@@ -39,6 +64,10 @@
 .title {
     text-shadow: 2px 2px 3px black;
     font-size: 3.5em;
+}
+
+.title-row {
+    height: 5rem;
 }
 
 .eaves {
@@ -55,6 +84,11 @@
     height: 400px;
     margin-top: 7rem;
 }
+
+.gen-img {
+    height: 25rem;
+}
+
 #modalBtn {
     margin: 1rem;
     position: fixed;
