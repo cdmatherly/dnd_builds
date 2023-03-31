@@ -58,9 +58,14 @@ body {
 }
 
 #warning {
-    text-shadow: 2px 2px 3px black;
+    text-shadow: 3px 3px 3px black;
 }
 
+.regBtn {
+    text-shadow: 2px 2px 3px black;
+    background-color:transparent;
+    border-style: none;
+}
 .title {
     text-shadow: 2px 2px 3px black;
     font-size: 3.5em;
@@ -88,6 +93,7 @@ body {
 .gen-img {
     height: 25rem;
 }
+
 
 #modalBtn {
     margin: 1rem;

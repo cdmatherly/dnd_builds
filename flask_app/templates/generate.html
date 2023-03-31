@@ -50,7 +50,7 @@
                     {% if 'user_id' in session %}
                         <button type="submit" id="saveButton" class="btn btn-primary visually-hidden">Save Build</button>
                     {% else %}
-                        <p class="h5 visually-hidden text-light shadow-lg" id="warning">You must <button class="btn text-primary text-decoration-underline fs-5" type="submit">register</button> to save your builds</p>
+                        <p class="h5 visually-hidden text-light" id="warning">You must <button class="text-primary text-decoration-underline fs-5 regBtn" type="submit">register</button> to save your builds</p>
                     {% endif %}
                 </form>
                 <div class="d-flex flex-column gap-2 mt-2 mb-5 justify-content-center align-item-center" id="genBtns">
