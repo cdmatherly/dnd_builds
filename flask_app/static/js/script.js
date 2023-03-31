@@ -74,7 +74,7 @@ function getData(raceChoice, classChoice, bgChoice) {
                 </tr>
             </tbody>
         </table>
-        <input type="hidden" class="form" name="proficiencies" id="proficienciesInput" value = "[">
+        <input type="hidden" class="form" name="proficiencies" id="proficienciesInput">
     </div>
     `
     genBtn2.classList.remove("visually-hidden")
@@ -108,7 +108,7 @@ function getData(raceChoice, classChoice, bgChoice) {
         var proficienciesHTML = document.querySelector("#proficiencies");
         var proficienciesInput = document.querySelector("#proficienciesInput");
         proficienciesHTML.innerHTML = `` //resets proficiencies list on every API call
-        proficienciesInput.value = `` //resets proficiencies input on every API call
+        proficienciesInput.value = `[` //resets proficiencies input on every API call
         if (buildClass == "rogue") {
             proficiencies.pop()
         }
