@@ -1,3 +1,4 @@
+
 // ON PAGE LOAD
 bgList = ["bg-1", "bg-2", "bg-3", "bg-4"]
 var randomBg = bgList[Math.floor(Math.random() * bgList.length)]
@@ -17,6 +18,29 @@ var saveButton = document.querySelector("#saveButton")
 var warning = document.querySelector("#warning")
 var genBtn2 = document.querySelector("#genBtn2")
 
+// ! Async Attempt
+async function getImgs(){
+    var sourcesUrl = '/static/img/combo_imgs/sources.txt'
+    var response = await fetch(sourcesUrl)
+    var sources = await response.text()
+    sources = sources.split(',') //makes a list from each line separated by a comma
+    // console.log(sources)
+    var arr = []
+    for (each_source of sources){
+        each_source = each_source.split('-- ') //makes a new list separating at "-- " and just lists the name/source pairs
+        // console.log(each_source[0])
+        arr.push(each_source) //pushes each name/source pair array into larger array
+        // modalContent.innerHTML += `<p>${each_source}</p>`
+    }
+    var sourcesObj = Object.fromEntries(arr) //makes new object from each individual name/source array within the bigger array
+    // console.log(sourcesObj)
+    return sourcesObj
+
+}
+
+// (async () => {
+// console.log(await getImgs())
+// })()
 
 function getData(raceChoice, classChoice, bgChoice) {
     console.log("Passed through race >> " + raceChoice)
@@ -133,13 +157,14 @@ function getData(raceChoice, classChoice, bgChoice) {
             apiContent.innerHTML += `<input type="hidden" class="form" name="bgDescription" id="" value="${background.desc}">`;
     }
     async function findImgPath(){
+        var sourcesObj = await getImgs()
         var race = await getRace()
         var buildClass = await getClass()
         var imgPath = race + "-" + buildClass
         console.log(imgPath)
         var imgHTML = document.querySelector("#img")
         imgHTML.innerHTML = 
-        `<img src="/static/img/combo_imgs/${imgPath}.jpg" class="gen-img">`
+        `<a href="${sourcesObj[imgPath]}" target="_blank" rel="noreferrer noopener"><img src="/static/img/combo_imgs/${imgPath}.jpg" class="gen-img"></a>`
     }
 
     findImgPath()
