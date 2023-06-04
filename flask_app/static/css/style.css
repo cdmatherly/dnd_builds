@@ -58,6 +58,10 @@ body {
     background-size: cover;
 }
 
+.buildsBg, .buildsBg input, .buildsBg select, .buildsBg textarea {
+    background-color:rgb(255, 251, 234);
+}
+
 #warning {
     text-shadow: 3px 3px 3px black;
 }
