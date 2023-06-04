@@ -33,28 +33,29 @@ body {
     background-color: black;
     background-image: url(/static/img/dnd_bg1.jpg);
     background-repeat: no-repeat;
-    background-size: auto auto;
+    /* background-size: auto auto; */
+    background-size: cover;
 }
 
 .bg-2 {
     background-color: black;
     background-image: url(/static/img/dnd_bg2.jpg);
     background-repeat: no-repeat;
-    background-size: auto auto;
+    background-size: cover;
 }
 
 .bg-3 {
     background-color: black;
     background-image: url(/static/img/dnd_bg3.jpg);
     background-repeat: no-repeat;
-    background-size: auto auto;
+    background-size: cover;
 }
 
 .bg-4 {
     background-color: black;
     background-image: url(/static/img/dnd_bg4.jpg);
     background-repeat: no-repeat;
-    background-size: auto auto;
+    background-size: cover;
 }
 
 #warning {

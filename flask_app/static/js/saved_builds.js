@@ -59,7 +59,7 @@ fetch(sourcesUrl)
             arr.push(each_source) //pushes each name/source pair array into larger array
             // modalContent.innerHTML += `<p>${each_source}</p>`
         }
-        sourcesObj = Object.fromEntries(arr) //makes new object from each individual name/source array within the bigger array
+        var sourcesObj = Object.fromEntries(arr) //makes new object from each individual name/source array within the bigger array
         for (each_entry in sourcesObj){
             modalContent.innerHTML += `<p">${each_entry.replace('-',' ').replace('-',' ')}: <a href='${sourcesObj[each_entry]}'>Source</a></p>` 
             // * '.replace' gets rid of all hyphens (do it twice for instances like half-orc or half-elf where there are hyphens twice)
