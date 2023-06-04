@@ -150,3 +150,11 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
+#wizard {
+    color: dimgray;
+}
+
+#wizard:hover {
+    color: gray;
+}
