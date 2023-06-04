@@ -169,11 +169,11 @@ function getData(raceChoice, classChoice, bgChoice) {
         var imgHTML = document.querySelector("#img")
         if (imgPath in sourcesObj){ //check if we have a source for specific image
             imgHTML.innerHTML = 
-            `<a href="${sourcesObj[imgPath]}" target="_blank" rel="noreferrer noopener"><img src="/static/img/combo_imgs/${imgPath}.jpg" class="gen-img"></a>`
+            `<a href="${sourcesObj[imgPath]}" target="_blank" rel="noreferrer noopener"><img src="/static/img/combo_imgs/${imgPath}.jpg" class="gen-img" alt="image of race and class combination"></a>`
         }
         else {
             imgHTML.innerHTML = 
-            `<img src="/static/img/combo_imgs/${imgPath}.jpg" class="gen-img"></img>`
+            `<img src="/static/img/combo_imgs/${imgPath}.jpg" class="gen-img" alt="image of race and class combination"></img>`
         }
     }
 
